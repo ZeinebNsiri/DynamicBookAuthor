@@ -1,0 +1,22 @@
+<table>
+        <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Action</th>
+        <th>Action</th>
+        </tr>
+    
+    {% for author in authors %}
+
+    <tr>
+    <td>{{author.id}}</td>
+    <td>{{author.username}}</td>
+    <th>{{author.email}}</th>
+    <td><a href='{{ path ('app_deleteAuthor' , { 'id':author.id } ) }}'>delete</a><td>
+    <td><a href='{{ path ('pp_updateAuthor' , { 'id':author.id } ) }}'>update</a><td>
+    
+    </tr>
+
+    {% endfor %}
+    </table>
