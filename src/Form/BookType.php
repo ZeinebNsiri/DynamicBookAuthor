@@ -24,6 +24,7 @@ class BookType extends AbstractType
                 'class' => Author::class,
                 'choice_label' => 'id',
             ])
+            ->add('category')
             ->add('submit', SubmitType::class)
         ;
     }

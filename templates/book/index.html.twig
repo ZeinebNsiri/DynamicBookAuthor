@@ -16,6 +16,7 @@
     <td>{{Book.title}}</td>
     <td>{{Book.publicationDate | date('Y-m-d') }}</td>
     <td>{{Book.enabled}}</td>
+    <td>{{Book.category}}</td>
     <td><a href='{{ path ('app_deleteBook' , { 'id':Book.id } ) }}'>delete</a><td>
     <td><a href='{{ path ('app_updateBook' , { 'id':Book.id } ) }}'>update</a><td>
     <td>{{Book.author.username}}</td>

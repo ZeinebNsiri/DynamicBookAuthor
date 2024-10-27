@@ -69,6 +69,14 @@ public function getAuthorssOrderByName(){
 }
 
 
+//atelier queryBuilder 1)
+public function getAuthorByEmail()
+{
+    $qb = $this->createQueryBuilder('a')
+               ->orderBy('a.email', 'ASC');
+    return $qb->getQuery()->getResult();
+}
+
 
 
 

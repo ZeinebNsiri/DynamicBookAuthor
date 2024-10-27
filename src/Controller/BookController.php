@@ -13,6 +13,7 @@ use App\Repository\AuthorRepository;
 use App\Form\BookType;
 use App\Form\RechercheType;
 use Symfony\Component\HttpFoundation\Request;
+use App\Form\RechercheBookRefType;
 
 class BookController extends AbstractController
 {
@@ -106,7 +107,7 @@ class BookController extends AbstractController
         {
             $em->persist($book);
             $em->flush();
-            return $this->redirectToRoute('app_getallBooks');
+            return $this->redirectToRoute('app_getallBooks2');
         }
 
         return $this->render('book/formbook.html.twig',[
@@ -176,5 +177,53 @@ class BookController extends AbstractController
     }
 
 
+    #[Route('/BooksByRef', name: 'BooksByref')]
+    public function getBookByref(BookRepository $repository,Request $req)
+    {
+        $form = $this->createForm(RechercheBookRefType::class);
+        $form->handleRequest($req);
+        
+        if ($form->isSubmitted()) {
+            $id = $form->getData();
+            
+    
+            
+            $Books = $repository->searchBookByRef($id);
+            return $this->render('book/RefSearch.html.twig', [
+                'f' => $form->createView(),
+                'books' => $Books,
+            ]);
+        }
+    
+       
 
+        $Books= $repository-> findAll();
+        return $this->render('book/RefSearch.html.twig',[
+
+            'f'=>$form->createView(),'books' => $Books 
+      
+            ]);
+    }
+
+
+
+    #[Route('/Book/getall2', name: 'app_getallBooks2')]
+    public function getallBook2(BookRepository $repository)
+    {
+        $Books= $repository-> listeBookByNbBook();
+        return $this->render('Book/index.html.twig', [
+            'Books' => $Books 
+        ]);  
+    }
+
+
+    #[Route('/book/update-category', name: 'updatebookcategory')]
+        public function updatebookcategory(BookRepository $repository): Response
+    {
+          $repository->updatebookcategory();
+
+          return $this->redirectToRoute('app_getallBooks');
+    }
+
+    
 }
